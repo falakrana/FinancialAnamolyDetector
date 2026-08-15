@@ -4,7 +4,7 @@ A high-performance anomaly detection system for detecting financial trading irre
 
 ---
 
-## 🎯 Overview
+## Overview
 
 Ingests asynchronous, out-of-order transaction records and:
 
@@ -15,18 +15,18 @@ Ingests asynchronous, out-of-order transaction records and:
 
 ### Key Features
 
-✅ Real-time WebSocket streaming  
-✅ Duplicate detection & idempotency  
-✅ Late-arrival handling with retroactive updates  
-✅ Missing data interpolation  
-✅ Deterministic replay system  
-✅ Full audit trail  
-✅ Interactive React dashboard  
-✅ 14 automated tests + 5 fixture files  
+- Real-time WebSocket streaming  
+- Duplicate detection & idempotency  
+- Late-arrival handling with retroactive updates  
+- Missing data interpolation  
+- Deterministic replay system  
+- Full audit trail  
+- Interactive React dashboard  
+- 14 automated tests + 5 fixture files
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 **Backend**: FastAPI + NumPy | **Frontend**: React + Vite | **Real-time**: WebSockets
 
@@ -42,7 +42,7 @@ FastAPI Backend (8000)
 
 ---
 
-## 📋 Data Models
+## Data Models
 
 **Transaction Event (Input):**
 ```json
@@ -81,13 +81,12 @@ FastAPI Backend (8000)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
 - **Python 3.9+** with pip
 - **Node.js 16+** with npm
-- **Git** for version control
 
 ### 1. Clone the Repository
 
@@ -99,52 +98,36 @@ cd MyOnsite
 ### 2. Set Up Backend
 
 ```powershell
-# Navigate to backend directory
 cd backend
-
-# Create and activate virtual environment
 python -m venv .venv
 .venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run the FastAPI server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-**Backend will be available at:** http://127.0.0.1:8000
-- **API Docs**: http://127.0.0.1:8000/docs (Swagger UI)
-- **ReDoc**: http://127.0.0.1:8000/redoc
-- **WebSocket**: ws://127.0.0.1:8000/ws/live
+Backend available at http://127.0.0.1:8000
 
 ### 3. Set Up Frontend
 
 In a new terminal:
 
 ```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
 ```
 
-**Frontend will be available at:** http://localhost:5173
+Frontend available at http://localhost:5173
 
 ### 4. Verify Installation
 
 1. Open http://localhost:5173 in your browser
-2. Dashboard should load with empty state
-3. Use "Replay Controls" to load a fixture file
-4. Observe real-time updates and anomalies
+2. Use "Replay Controls" to load a fixture file
+3. Observe real-time updates
 
 ---
 
-## 📊 Usage Guide
+## Usage Guide
 
 ### Ingest Transactions (REST API)
 
@@ -160,43 +143,29 @@ curl -X POST "http://127.0.0.1:8000/api/transactions/batch" \
   -d @fixtures/01_normal_flow.json
 ```
 
-### Query State & Anomalies
+### Query State
 
 ```bash
 curl http://127.0.0.1:8000/api/state              # All accounts
 curl http://127.0.0.1:8000/api/state/acc-100     # Specific account
-curl http://127.0.0.1:8000/api/anomalies         # All anomalies
-curl http://127.0.0.1:8000/api/audit             # Audit trail
-```
-
-### Replay Events
-
-```bash
-curl -X POST "http://127.0.0.1:8000/api/replay/fixture/01_normal_flow"
 ```
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 cd backend
 pytest tests/ -v --tb=short
 ```
 
-**Test Coverage:**
-- State reconstruction with duplicates ✅
-- Late-arrival processing ✅
-- Z-score anomaly detection ✅
-- Rolling window edge cases ✅
-- Deterministic replay ✅
-- All 5 fixtures ✅
+Test coverage includes state reconstruction, anomaly detection, replay determinism, and all 5 fixtures.
 
-**Expected Result:** `14 passed`
+Expected result: `14 passed`
 
 ---
 
-## 📁 Fixtures (Edge Cases)
+## Fixtures (Edge Cases)
 
 | Fixture | Purpose |
 |---------|---------|
@@ -208,7 +177,7 @@ pytest tests/ -v --tb=short
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 Environment variables in `backend/app/config.py`:
 
@@ -226,19 +195,14 @@ cd backend && uvicorn app.main:app --reload
 
 ---
 
-## 🔍 How It Works
+## How It Works
 
-**1. Deduplication:** Check if event ID exists; reject duplicates.
-
-**2. Sorting:** Insert event into log by timestamp (with source reliability as tiebreaker).
-
-**3. Late-Arrival Handling:** If event inserted before log end, trigger retroactive recomputation.
-
-**4. Anomaly Detection:** Compute Z-score using rolling 10-minute window statistics.
-
-**5. Audit Logging:** Record state before/after, anomaly result, and reasoning.
-
-**6. Deterministic Replay:** Re-process sorted events to reproduce identical state and audit trail.
+1. **Deduplication**: Check if event ID exists; reject duplicates.
+2. **Sorting**: Insert event into log by timestamp (with source reliability as tiebreaker).
+3. **Late-Arrival Handling**: If event inserted before log end, trigger retroactive recomputation.
+4. **Anomaly Detection**: Compute Z-score using rolling 10-minute window statistics.
+5. **Audit Logging**: Record state before/after, anomaly result, and reasoning.
+6. **Deterministic Replay**: Re-process sorted events to reproduce identical state and audit trail.
 
 ---
 
@@ -278,73 +242,54 @@ pytest tests/ -v --tb=long
 
 ---
 
-## 📚 Project Structure
+## Project Structure
 
 ```
 MyOnsite/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                 # FastAPI entry point
-│   │   ├── config.py               # Configuration & thresholds
+│   │   ├── config.py               # Configuration
 │   │   ├── models/
-│   │   │   ├── transaction.py      # Transaction Pydantic models
-│   │   │   ├── state.py            # Account state models
-│   │   │   └── audit.py            # Audit log models
+│   │   │   ├── transaction.py      # Transaction models
+│   │   │   ├── state.py            # State models
+│   │   │   └── audit.py            # Audit models
 │   │   ├── core/
-│   │   │   ├── state_engine.py     # Event sourcing & state reconstruction
-│   │   │   ├── anomaly_detector.py # NumPy Z-score analysis
-│   │   │   ├── audit_logger.py     # Immutable audit trail
-│   │   │   └── replay_engine.py    # Deterministic replay
+│   │   │   ├── state_engine.py     # State reconstruction
+│   │   │   ├── anomaly_detector.py # Anomaly detection
+│   │   │   ├── audit_logger.py     # Audit trail
+│   │   │   └── replay_engine.py    # Replay system
 │   │   ├── api/
-│   │   │   ├── transactions.py     # Transaction ingestion
-│   │   │   ├── state.py            # State queries
-│   │   │   ├── anomalies.py        # Anomaly queries
-│   │   │   ├── audit.py            # Audit trail endpoints
-│   │   │   ├── replay.py           # Replay controls
-│   │   │   └── websocket.py        # WebSocket streaming
+│   │   │   ├── transactions.py
+│   │   │   ├── state.py
+│   │   │   ├── replay.py
+│   │   │   └── websocket.py
 │   │   └── utils/
-│   │       └── helpers.py          # Utilities
-│   ├── fixtures/                   # 5 edge-case test datasets
-│   │   ├── 01_normal_flow.json
-│   │   ├── 02_duplicate_events.json
-│   │   ├── 03_late_arriving.json
-│   │   ├── 04_missing_data.json
-│   │   └── 05_conflicting_threshold.json
-│   ├── tests/                      # 14 automated tests
-│   │   ├── test_state_engine.py
-│   │   ├── test_anomaly_detector.py
-│   │   ├── test_audit_logger.py
-│   │   ├── test_replay_engine.py
-│   │   └── test_edge_cases.py
-│   ├── requirements.txt
-│   └── README.md
+│   │       └── helpers.py
+│   ├── fixtures/                   # Test datasets
+│   ├── tests/                      # Automated tests
+│   └── requirements.txt
 │
 ├── frontend/
-│   ├── public/                     # Static assets
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Dashboard.jsx       # Main layout
-│   │   │   ├── TransactionFeed.jsx # Live transaction stream
-│   │   │   ├── AnomalyPanel.jsx    # Anomaly alerts
-│   │   │   ├── AuditLog.jsx        # Audit trail viewer
-│   │   │   ├── AccountStateView.jsx# Account balances
-│   │   │   ├── ReplayControls.jsx  # Replay interface
-│   │   │   └── StatsCharts.jsx     # Charts visualization
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── TransactionFeed.jsx
+│   │   │   ├── AnomalyPanel.jsx
+│   │   │   ├── AuditLog.jsx
+│   │   │   ├── AccountStateView.jsx
+│   │   │   ├── ReplayControls.jsx
+│   │   │   └── StatsCharts.jsx
 │   │   ├── hooks/
-│   │   │   └── useWebSocket.js     # WebSocket connection
+│   │   │   └── useWebSocket.js
 │   │   ├── services/
-│   │   │   └── api.js              # REST client
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── main.jsx
-│   ├── package.json
-│   ├── vite.config.js
-│   └── README.md
+│   │   │   └── api.js
+│   │   └── App.jsx
+│   └── package.json
 │
-├── MyOnsitePRD.md                  # Product requirements
-├── implementation_plan.md          # Implementation details
-├── walkthrough.md                  # Feature walkthrough
-└── README.md                       # This file
+├── MyOnsitePRD.md
+├── implementation_plan.md
+└── README.md
 ```
 
 ---
@@ -471,6 +416,4 @@ Subscribe to real-time updates.
 }
 ```
 
----
-
-**Last Updated:** August 15, 2026 | **Version:** 1.0.0
+Version: 1.0.0
