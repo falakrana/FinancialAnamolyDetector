@@ -1,0 +1,42 @@
+[
+  {
+    "id": "dup-001",
+    "timestamp": "2026-08-15T10:10:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-200",
+    "amount": 10000.0,
+    "type": "deposit"
+  },
+  {
+    "id": "dup-002",
+    "timestamp": "2026-08-15T10:11:00Z",
+    "source": "exchange-B",
+    "account_id": "acc-200",
+    "amount": 250.0,
+    "type": "buy"
+  },
+  {
+    "id": "dup-002",
+    "timestamp": "2026-08-15T10:11:00Z",
+    "source": "exchange-B",
+    "account_id": "acc-200",
+    "amount": 250.0,
+    "type": "buy"
+  },
+  {
+    "id": "dup-003",
+    "timestamp": "2026-08-15T10:12:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-200",
+    "amount": 260.0,
+    "type": "buy"
+  },
+  {
+    "id": "dup-001",
+    "timestamp": "2026-08-15T10:10:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-200",
+    "amount": 10000.0,
+    "type": "deposit"
+  }
+]

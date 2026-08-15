@@ -1,0 +1,50 @@
+[
+  {
+    "id": "norm-001",
+    "timestamp": "2026-08-15T10:00:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-100",
+    "amount": 50000.0,
+    "type": "deposit"
+  },
+  {
+    "id": "norm-002",
+    "timestamp": "2026-08-15T10:01:00Z",
+    "source": "exchange-B",
+    "account_id": "acc-100",
+    "amount": 150.0,
+    "type": "buy"
+  },
+  {
+    "id": "norm-003",
+    "timestamp": "2026-08-15T10:02:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-100",
+    "amount": 155.0,
+    "type": "buy"
+  },
+  {
+    "id": "norm-004",
+    "timestamp": "2026-08-15T10:03:00Z",
+    "source": "exchange-B",
+    "account_id": "acc-100",
+    "amount": 145.0,
+    "type": "buy"
+  },
+  {
+    "id": "norm-005",
+    "timestamp": "2026-08-15T10:04:00Z",
+    "source": "internal-log",
+    "account_id": "acc-100",
+    "amount": 160.0,
+    "type": "buy"
+  },
+  {
+    "id": "norm-006",
+    "timestamp": "2026-08-15T10:05:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-100",
+    "amount": 150.0,
+    "type": "buy"
+  }
+]

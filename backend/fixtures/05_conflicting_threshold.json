@@ -1,0 +1,58 @@
+[
+  {
+    "id": "conflict-001",
+    "timestamp": "2026-08-15T10:30:00Z",
+    "source": "internal-log",
+    "account_id": "acc-500",
+    "amount": 20000.0,
+    "type": "deposit"
+  },
+  {
+    "id": "conflict-002",
+    "timestamp": "2026-08-15T10:30:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 20000.0,
+    "type": "deposit"
+  },
+  {
+    "id": "conflict-003",
+    "timestamp": "2026-08-15T10:51:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 100.0,
+    "type": "buy"
+  },
+  {
+    "id": "conflict-004",
+    "timestamp": "2026-08-15T10:51:30Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 200.0,
+    "type": "buy"
+  },
+  {
+    "id": "conflict-005",
+    "timestamp": "2026-08-15T10:52:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 100.0,
+    "type": "buy"
+  },
+  {
+    "id": "conflict-006",
+    "timestamp": "2026-08-15T10:52:30Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 200.0,
+    "type": "buy"
+  },
+  {
+    "id": "conflict-007",
+    "timestamp": "2026-08-15T10:53:00Z",
+    "source": "exchange-A",
+    "account_id": "acc-500",
+    "amount": 300.0,
+    "type": "buy"
+  }
+]
