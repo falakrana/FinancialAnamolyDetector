@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
-export const useWebSocket = (url = 'ws://127.0.0.1:8000/ws/live') => {
+const defaultHostname = typeof window !== 'undefined' ? window.location.hostname : '127.0.0.1';
+export const useWebSocket = (url = `ws://${defaultHostname}:8000/ws/live`) => {
   const [isConnected, setIsConnected] = useState(false);
   const [lastMessage, setLastMessage] = useState(null);
   const socketRef = useRef(null);
