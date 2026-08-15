@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const hostname = typeof window !== 'undefined' ? window.location.hostname : '127.0.0.1';
+const rawHostname = typeof window !== 'undefined' ? window.location.hostname : '127.0.0.1';
+const hostname = rawHostname === 'localhost' ? '127.0.0.1' : rawHostname;
 const API_BASE_URL = `http://${hostname}:8000/api`;
 
 const client = axios.create({

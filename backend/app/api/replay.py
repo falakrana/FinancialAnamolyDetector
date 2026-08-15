@@ -9,10 +9,25 @@ from ..utils.helpers import parse_iso_datetime
 router = APIRouter(prefix="/replay", tags=["Temporal Replay"])
 
 @router.post("")
-async def replay_events(events: List[TransactionEvent]):
+async def replay_events(events: List[TransactionEvent], request: Request):
     """Replay a provided sequence of events deterministically and return final states and audit log."""
     engine = ReplayEngine()
     result = engine.replay(events)
+    
+    # Reset and populate global state engine
+    global_engine = request.app.state.state_engine
+    global_engine.reset()
+    
+    from ..config import settings
+    reliability_ranking = settings.SOURCE_RELIABILITY_RANKING
+    def get_sort_key(event: TransactionEvent):
+        reliability = reliability_ranking.get(event.source, 0)
+        return (event.timestamp, -reliability, event.id)
+    
+    sorted_events = sorted(events, key=get_sort_key)
+    for event in sorted_events:
+        global_engine.process_event(event)
+        
     # Convert model types in response
     return {
         "event_count": result["event_count"],
@@ -21,7 +36,7 @@ async def replay_events(events: List[TransactionEvent]):
     }
 
 @router.post("/fixture/{name}")
-async def replay_fixture(name: str):
+async def replay_fixture(name: str, request: Request):
     """Load a fixture JSON file and execute a deterministic replay on it."""
     # Ensure file name is secure (no directory traversal)
     safe_name = os.path.basename(name)
@@ -69,6 +84,20 @@ async def replay_fixture(name: str):
             
     engine = ReplayEngine()
     result = engine.replay(events)
+    
+    # Reset and populate global state engine
+    global_engine = request.app.state.state_engine
+    global_engine.reset()
+    
+    from ..config import settings
+    reliability_ranking = settings.SOURCE_RELIABILITY_RANKING
+    def get_sort_key(event: TransactionEvent):
+        reliability = reliability_ranking.get(event.source, 0)
+        return (event.timestamp, -reliability, event.id)
+    
+    sorted_events = sorted(events, key=get_sort_key)
+    for event in sorted_events:
+        global_engine.process_event(event)
     
     return {
         "fixture_name": name,
