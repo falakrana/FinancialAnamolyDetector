@@ -39,3 +39,43 @@ pytest tests/ -v --tb=short
 - **Edge-case Fixtures**: Successfully replayed and verified all 5 fixture scenarios (`normal_flow`, `duplicate_events`, `late_arriving`, `missing_data`, `conflicting_threshold`).
 
 All 14 tests pass successfully.
+
+---
+
+## Running the Application
+
+### 1. Start the Backend
+Navigate to the `backend` directory, activate the virtual environment, install dependencies, and start the FastAPI server:
+
+```powershell
+# Navigate to backend
+cd backend
+
+# Create & Activate virtual environment (if not already done)
+python -m venv .venv
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the backend server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend API will run on http://127.0.0.1:8000 and live WebSockets stream on ws://127.0.0.1:8000/ws.
+
+### 2. Start the Frontend
+Navigate to the `frontend` directory, install package dependencies, and run the Vite development server:
+
+```bash
+# Navigate to frontend
+cd frontend
+
+# Install package dependencies
+npm install
+
+# Run the dev server
+npm run dev
+```
+
+The frontend dashboard will run on http://localhost:5173.
