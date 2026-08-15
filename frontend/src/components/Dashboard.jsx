@@ -7,7 +7,7 @@ import { AnomalyPanel } from './AnomalyPanel';
 import { AuditLog } from './AuditLog';
 import { ReplayControls } from './ReplayControls';
 import { StatsCharts } from './StatsCharts';
-import { ShieldCheck, Wifi, WifiOff, AlertOctagon, Terminal } from 'lucide-react';
+import { ShieldCheck, AlertOctagon, Terminal } from 'lucide-react';
 
 export const Dashboard = () => {
   const [accounts, setAccounts] = useState({});
@@ -149,22 +149,6 @@ export const Dashboard = () => {
               Real-time High-Frequency Trading Telemetry Stream
             </span>
           </div>
-        </div>
-
-        {/* WebSocket Connection Status Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 12px', borderRadius: '20px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--card-border)' }}>
-          {isConnected ? (
-            <>
-              <Wifi size={14} style={{ color: 'var(--success-color)' }} />
-              <span style={{ fontSize: '12px', color: 'var(--success-color)', fontWeight: '500' }}>Live stream connected</span>
-              <span className="pulse-active" style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success-color)' }} />
-            </>
-          ) : (
-            <>
-              <WifiOff size={14} style={{ color: 'var(--danger-color)' }} />
-              <span style={{ fontSize: '12px', color: 'var(--danger-color)', fontWeight: '500' }}>Stream disconnected</span>
-            </>
-          )}
         </div>
       </header>
 
